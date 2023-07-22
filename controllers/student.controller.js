@@ -1,4 +1,5 @@
 // import models
+const {req,res} = require("express");
 const db = require("../models");
 
 // import Sequelize Student model
@@ -128,3 +129,31 @@ exports.delete_student = (req, res) => {
         });
     });
 }; 
+
+exports.count_students = (req,res)=>{
+
+    Student.count({})
+        .then(num =>{
+            if(num > 0){
+                res.send({
+                    message: `the num of rows is ${num}`,
+                    status: "success",
+                    status_code: 100
+                });
+            }
+            else {
+                res.send({
+                    message: "no records in the table",
+                    status: "error",
+                    status_code: 400
+                });
+            }
+        })
+        .catch(err=>{
+            res.send({
+                message:"error occured while counting records" || err.message,
+                status: "error",
+                status_code: 400
+            });
+        });
+};

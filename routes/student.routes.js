@@ -19,6 +19,9 @@ module.exports = app => {
     // update students api route
     router.delete("/delete/:id", students_logic.delete_student); 
 
+    // count students api
+    router.get("/count",students_logic.count_students);
+
     // define default route
     app.use('/students', router);
 
